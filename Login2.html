@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طبيب 24/7 - تسجيل الدخول</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #c7d2fe;
+            --secondary: #06d6a0;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --dark: #1e1b4b;
+            --light: #f8fafc;
+            --surface: #ffffff;
+            --glass: rgba(255, 255, 255, 0.25);
+            --glass-dark: rgba(255, 255, 255, 0.1);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-medical: linear-gradient(135deg, #6366f1 0%, #06d6a0 100%);
+            --gradient-premium: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-glass: 0 8px 32px rgba(99, 102, 241, 0.2);
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --radius-xl: 24px;
+            --radius-lg: 20px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'El Messiri', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            direction: rtl;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-xl);
+            padding: 40px 30px;
+            box-shadow: var(--shadow-glass);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-medical);
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: var(--surface);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .logo i {
+            font-size: 36px;
+            background: var(--gradient-medical);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 16px;
+        }
+
+        .user-type-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .user-type-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: var(--radius-lg);
+            padding: 20px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(10px);
+        }
+
+        .user-type-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .user-type-card.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .user-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .user-type-card.active .user-icon {
+            background: var(--surface);
+            color: var(--primary);
+        }
+
+        .user-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .input-label {
+            display: block;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: white;
+            font-size: 16px;
+            transition: var(--transition-smooth);
+            backdrop-filter: blur(10px);
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 18px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 18px;
+            background: var(--gradient-medical);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            margin-top: 10px;
+            box-shadow: var(--shadow-glass);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.4);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .login-button:hover::before {
+            left: 100%;
+        }
+
+        .login-links {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .link {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 14px;
+            transition: var(--transition-smooth);
+        }
+
+        .link:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--secondary);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin-bottom: 20px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fecaca;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #a7f3d0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .user-type-selector {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .user-type-card {
+                padding: 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-effects">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-header fade-in">
+            <div class="logo">
+                <i class="fas fa-stethoscope"></i>
+            </div>
+            <h1>مرحباً بعودتك</h1>
+            <p>سجل الدخول إلى حسابك للمتابعة</p>
+        </div>
+
+        <div class="alert alert-error" id="errorAlert">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="errorMessage">يرجى ملء جميع الحقول المطلوبة</span>
+        </div>
+
+        <div class="alert alert-success" id="successAlert">
+            <i class="fas fa-check-circle"></i>
+            <span id="successMessage">جاري تسجيل الدخول...</span>
+        </div>
+
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="user-type-selector fade-in">
+            <div class="user-type-card" data-type="patient">
+                <div class="user-icon">
+                    <i class="fas fa-user-injured"></i>
+                </div>
+                <div class="user-label">مريض</div>
+            </div>
+            <div class="user-type-card" data-type="doctor">
+                <div class="user-icon">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="user-label">طبيب</div>
+            </div>
+            <div class="user-type-card" data-type="hospital">
+                <div class="user-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <div class="user-label">مستشفى</div>
+            </div>
+        </div>
+
+        <form id="loginForm">
+            <div class="input-group fade-in">
+                <label class="input-label" for="phone">
+                    <i class="fas fa-mobile-alt" style="margin-left: 8px;"></i>
+                    رقم الهاتف
+                </label>
+                <div style="position: relative;">
+                    <input type="tel" id="phone" class="input-field" placeholder="05XXXXXXXX" required>
+                    <div class="input-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group fade-in">
+                <label class="input-label" for="password">
+                    <i class="fas fa-lock" style="margin-left: 8px;"></i>
+                    كلمة المرور
+                </label>
+                <div style="position: relative;">
+                    <input type="password" id="password" class="input-field" placeholder="أدخل كلمة المرور" required>
+                    <button type="button" class="password-toggle" id="togglePassword">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+
+            <button type="submit" class="login-button fade-in" id="loginButton">
+                <span id="buttonText">تسجيل الدخول</span>
+                <i class="fas fa-sign-in-alt" style="margin-right: 8px;"></i>
+            </button>
+        </form>
+
+        <div class="login-links fade-in">
+            <a href="#" class="link">نسيت كلمة المرور؟</a>
+            <span style="color: rgba(255,255,255,0.5); margin: 0 8px;">|</span>
+            <a href="#" class="link">إنشاء حساب جديد</a>
+        </div>
+    </div>
+
+    <script>
+        // نظام إدارة الجلسة
+        class SessionManager {
+            constructor() {
+                this.currentUser = null;
+                this.init();
+            }
+
+            init() {
+                // التحقق من وجود جلسة سابقة
+                const savedUser = localStorage.getItem('currentUser');
+                if (savedUser) {
+                    this.currentUser = JSON.parse(savedUser);
+                    this.redirectToDashboard(this.currentUser.userType);
+                }
+            }
+
+            login(userData) {
+                this.currentUser = userData;
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                localStorage.setItem('loginTime', new Date().toISOString());
+            }
+
+            logout() {
+                this.currentUser = null;
+                localStorage.removeItem('currentUser');
+                localStorage.removeItem('loginTime');
+                window.location.href = 'index.html';
+            }
+
+            redirectToDashboard(userType) {
+                const dashboardPages = {
+                    'patient': 'patient-dashboard.html',
+                    'doctor': 'doctor-dashboard.html',
+                    'hospital': 'hospital-dashboard.html'
+                };
+
+                if (dashboardPages[userType]) {
+                    window.location.href = dashboardPages[userType];
+                }
+            }
+
+            getCurrentUser() {
+                return this.currentUser;
+            }
+
+            isLoggedIn() {
+                return this.currentUser !== null;
+            }
+        }
+
+        // نظام المصادقة
+        class AuthManager {
+            constructor() {
+                this.users = this.loadUsers();
+            }
+
+            loadUsers() {
+                // في التطبيق الحقيقي، سيتم جلب البيانات من API
+                const defaultUsers = {
+                    'patient': [
+                        { phone: '0512345678', password: 'patient123', name: 'محمد أحمد', id: 'P001' },
+                        { phone: '0512345679', password: 'patient123', name: 'فاطمة خالد', id: 'P002' }
+                    ],
+                    'doctor': [
+                        { phone: '0512345680', password: 'doctor123', name: 'د. كريم محمد', id: 'D001', specialization: 'قلب' },
+                        { phone: '0512345681', password: 'doctor123', name: 'د. منى السيد', id: 'D002', specialization: 'أعصاب' }
+                    ],
+                    'hospital': [
+                        { phone: '0512345682', password: 'hospital123', name: 'مستشفى الملك فهد', id: 'H001' },
+                        { phone: '0512345683', password: 'hospital123', name: 'مستشفى الملك خالد', id: 'H002' }
+                    ]
+                };
+
+                // تحميل المستخدمين من localStorage إذا موجودين
+                const savedUsers = localStorage.getItem('medicalUsers');
+                return savedUsers ? JSON.parse(savedUsers) : defaultUsers;
+            }
+
+            saveUsers() {
+                localStorage.setItem('medicalUsers', JSON.stringify(this.users));
+            }
+
+            authenticate(phone, password, userType) {
+                const user = this.users[userType]?.find(u => 
+                    u.phone === phone && u.password === password
+                );
+
+                if (user) {
+                    return {
+                        success: true,
+                        user: {
+                            ...user,
+                            userType: userType
+                        },
+                        message: 'تم تسجيل الدخول بنجاح'
+                    };
+                }
+
+                return {
+                    success: false,
+                    message: 'رقم الهاتف أو كلمة المرور غير صحيحة'
+                };
+            }
+
+            register(userData) {
+                const { phone, userType } = userData;
+                
+                // التحقق من عدم وجود مستخدم بنفس الرقم
+                const existingUser = this.users[userType]?.find(u => u.phone === phone);
+                if (existingUser) {
+                    return {
+                        success: false,
+                        message: 'رقم الهاتف مسجل مسبقاً'
+                    };
+                }
+
+                // إضافة المستخدم الجديد
+                if (!this.users[userType]) {
+                    this.users[userType] = [];
+                }
+
+                this.users[userType].push(userData);
+                this.saveUsers();
+
+                return {
+                    success: true,
+                    message: 'تم إنشاء الحساب بنجاح'
+                };
+            }
+        }
+
+        // تهيئة التطبيق
+        document.addEventListener('DOMContentLoaded', function() {
+            const sessionManager = new SessionManager();
+            const authManager = new AuthManager();
+
+            // إذا كان المستخدم مسجل الدخول بالفعل، توجيهه مباشرة
+            if (sessionManager.isLoggedIn()) {
+                sessionManager.redirectToDashboard(sessionManager.currentUser.userType);
+                return;
+            }
+
+            // تأثيرات الظهور
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach((element, index) => {
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, index * 200);
+            });
+
+            // اختيار نوع المستخدم
+            const userTypeCards = document.querySelectorAll('.user-type-card');
+            let selectedUserType = '';
+
+            userTypeCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    userTypeCards.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedUserType = this.dataset.type;
+                    
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                    }, 150);
+                });
+            });
+
+            // إظهار/إخفاء كلمة المرور
+            const togglePassword = document.getElementById('togglePassword');
+            const passwordInput = document.getElementById('password');
+
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+
+            // التحقق من صحة رقم الهاتف
+            function validatePhone(phone) {
+                const phoneRegex = /^05\d{8}$/;
+                return phoneRegex.test(phone);
+            }
+
+            // إدارة النموذج
+            const loginForm = document.getElementById('loginForm');
+            const errorAlert = document.getElementById('errorAlert');
+            const successAlert = document.getElementById('successAlert');
+            const progressBar = document.getElementById('progressBar');
+            const progressFill = document.getElementById('progressFill');
+            const loginButton = document.getElementById('loginButton');
+            const buttonText = document.getElementById('buttonText');
+
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                errorAlert.style.display = 'none';
+                successAlert.style.display = 'none';
+
+                const phone = document.getElementById('phone').value;
+                const password = document.getElementById('password').value;
+
+                if (!selectedUserType) {
+                    showError('يرجى اختيار نوع المستخدم');
+                    return;
+                }
+
+                if (!phone || !password) {
+                    showError('يرجى ملء جميع الحقول المطلوبة');
+                    return;
+                }
+
+                if (!validatePhone(phone)) {
+                    showError('رقم الهاتف يجب أن يبدأ بـ 05 ويحتوي على 10 أرقام');
+                    return;
+                }
+
+                startLoginProcess();
+
+                try {
+                    const authResult = authManager.authenticate(phone, password, selectedUserType);
+                    
+                    if (authResult.success) {
+                        // تسجيل الدخول وإنشاء الجلسة
+                        sessionManager.login(authResult.user);
+                        showSuccess('جاري توجيهك إلى لوحة التحكم...');
+                        completeLoginProcess();
+                        
+                        // التوجيه الفعلي إلى الصفحة المناسبة
+                        setTimeout(() => {
+                            sessionManager.redirectToDashboard(selectedUserType);
+                        }, 1500);
+                    } else {
+                        throw new Error(authResult.message);
+                    }
+                } catch (error) {
+                    showError(error.message);
+                    resetLoginButton();
+                }
+            });
+
+            // وظائف المساعدة
+            function showError(message) {
+                document.getElementById('errorMessage').textContent = message;
+                errorAlert.style.display = 'flex';
+                errorAlert.style.alignItems = 'center';
+                errorAlert.style.gap = '8px';
+                
+                loginForm.style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    loginForm.style.animation = '';
+                }, 500);
+            }
+
+            function showSuccess(message) {
+                document.getElementById('successMessage').textContent = message;
+                successAlert.style.display = 'flex';
+                successAlert.style.alignItems = 'center';
+                successAlert.style.gap = '8px';
+            }
+
+            function startLoginProcess() {
+                loginButton.disabled = true;
+                buttonText.textContent = 'جاري التسجيل...';
+                progressBar.style.display = 'block';
+                
+                let progress = 0;
+                const interval = setInterval(() => {
+                    progress += 5;
+                    progressFill.style.width = progress + '%';
+                    
+                    if (progress >= 90) {
+                        clearInterval(interval);
+                    }
+                }, 100);
+            }
+
+            function completeLoginProcess() {
+                progressFill.style.width = '100%';
+                loginButton.style.background = 'var(--success)';
+                buttonText.textContent = 'تم التسجيل بنجاح!';
+            }
+
+            function resetLoginButton() {
+                setTimeout(() => {
+                    loginButton.disabled = false;
+                    buttonText.textContent = 'تسجيل الدخول';
+                    progressBar.style.display = 'none';
+                    progressFill.style.width = '0%';
+                }, 2000);
+            }
+
+            // إضافة تأثير الاهتزاز
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    25% { transform: translateX(-10px); }
+                    75% { transform: translateX(10px); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // بيانات تجريبية للاختبار
+            console.log('بيانات تسجيل الدخول للتجربة:');
+            console.log('مريض: 0512345678 / patient123');
+            console.log('طبيب: 0512345680 / doctor123');
+            console.log('مستشفى: 0512345682 / hospital123');
+        });
+    </script>
+</body>
+</html>
