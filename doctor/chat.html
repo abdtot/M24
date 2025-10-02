@@ -1,1 +1,330 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طبيب 24/7 - الدردشة المتقدمة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style/chat.css">
+</head>
+<body>
+    <!-- تأثيرات الخلفية الديناميكية -->
+    <div class="background-effects">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="wave"></div>
+    </div>
 
+    <!-- شريط الحالة -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span id="currentTime">2:45</span>
+        </div>
+        <div class="status-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div class="premium-app">
+        <!-- الهيدر المتميز -->
+        <div class="premium-header">
+            <div class="header-background"></div>
+            <div class="header-content">
+                <div class="welcome-section">
+                    <div class="greeting-text">
+                        <h1>المحادثات المتقدمة 💬</h1>
+                        <p>تواصل مع مرضاك بسهولة وأمان</p>
+                    </div>
+                    <div class="premium-avatar">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                </div>
+
+                <!-- شريط البحث -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="ابحث في المحادثات..." id="searchInput">
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- زر محادثة جديدة -->
+        <button class="new-chat-btn" id="newChatBtn">
+            <i class="fas fa-plus"></i>
+        </button>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- فلتر المحادثات -->
+            <div class="active-chats-section">
+                <div class="chat-filters" id="chatFilters">
+                    <div class="chat-filter active" data-filter="all">الكل</div>
+                    <div class="chat-filter" data-filter="unread">غير المقروء</div>
+                    <div class="chat-filter" data-filter="online">متصل الآن</div>
+                    <div class="chat-filter" data-filter="archived">المؤرشفة</div>
+                    <div class="chat-filter" data-filter="important">مهم</div>
+                </div>
+                
+                <div class="section-title">المحادثات النشطة</div>
+                <div class="active-chats" id="activeChats">
+                    <!-- سيتم إضافة المحادثات النشطة ديناميكياً -->
+                </div>
+            </div>
+
+            <!-- قائمة المحادثات -->
+            <div class="chats-list" id="chatsList">
+                <!-- سيتم إضافة المحادثات ديناميكياً -->
+            </div>
+        </div>
+
+        <!-- زر الفعل العائم -->
+        <button class="fab-premium" id="refreshBtn">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+
+        <!-- شريط التنقل السفلي -->
+        <div class="bottom-nav-premium">
+            <a href="index.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-label">الرئيسية</div>
+            </a>
+            <a href="appointments.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="nav-label">المواعيد</div>
+            </a>
+            <a href="patients.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-user-injured"></i>
+                </div>
+                <div class="nav-label">المرضى</div>
+            </a>
+            <a href="chat.html" class="nav-item-premium active">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="nav-label">الدردشة</div>
+            </a>
+            <a href="settings.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="nav-label">الإعدادات</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- نافذة المحادثة -->
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header-bar">
+            <button class="back-button" id="backButton">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <div class="chat-avatar online" id="chatWindowAvatar">
+                م
+            </div>
+            <div class="chat-header-info">
+                <div class="chat-patient-name" id="chatWindowName">محمد السيد</div>
+                <div class="chat-patient-status" id="chatWindowStatus">
+                    <span>متصل الآن</span>
+                </div>
+            </div>
+            <button class="quick-actions-btn" id="chatActionsBtn">
+                <i class="fas fa-ellipsis-v"></i>
+            </button>
+        </div>
+        
+        <div class="chat-messages-container" id="chatMessages">
+            <!-- سيتم إضافة الرسائل ديناميكياً -->
+        </div>
+        
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="chat-avatar" id="typingAvatar">م</div>
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <button class="attach-button" id="attachButton">
+                <i class="fas fa-paperclip"></i>
+            </button>
+            <textarea class="chat-input" id="chatInput" placeholder="اكتب رسالة..." rows="1"></textarea>
+            <button class="voice-button" id="voiceButton">
+                <i class="fas fa-microphone"></i>
+            </button>
+            <button class="send-button" id="sendButton">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- نافذة الملف الشخصي -->
+    <div class="profile-modal" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>الملف الشخصي للمريض</h2>
+                <button class="close-modal" id="closeProfileModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="profileModalBody">
+                <!-- سيتم تعبئة البيانات ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة المكالمات -->
+    <div class="call-modal" id="callModal">
+        <div class="call-content">
+            <div class="call-header">
+                <div class="call-avatar" id="callAvatar">
+                    م
+                </div>
+                <div class="call-info">
+                    <div class="call-name" id="callName">محمد السيد</div>
+                    <div class="call-status" id="callStatus">جاري الاتصال...</div>
+                    <div class="call-timer" id="callTimer">00:00</div>
+                </div>
+            </div>
+            <div class="call-controls">
+                <button class="call-control mic-toggle" id="micToggle">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <button class="call-control video-toggle" id="videoToggle">
+                    <i class="fas fa-video"></i>
+                </button>
+                <button class="call-control end-call" id="endCall">
+                    <i class="fas fa-phone"></i>
+                </button>
+                <button class="call-control speaker-toggle" id="speakerToggle">
+                    <i class="fas fa-volume-up"></i>
+                </button>
+                <button class="call-control flip-camera" id="flipCamera">
+                    <i class="fas fa-camera-rotate"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الإرفاق -->
+    <div class="attach-modal" id="attachModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>إرفاق ملف</h2>
+                <button class="close-modal" id="closeAttachModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="attach-options">
+                    <div class="attach-option" data-type="camera">
+                        <i class="fas fa-camera"></i>
+                        <span>الكاميرا</span>
+                    </div>
+                    <div class="attach-option" data-type="gallery">
+                        <i class="fas fa-images"></i>
+                        <span>المعرض</span>
+                    </div>
+                    <div class="attach-option" data-type="document">
+                        <i class="fas fa-file"></i>
+                        <span>المستندات</span>
+                    </div>
+                    <div class="attach-option" data-type="location">
+                        <i class="fas fa-location-dot"></i>
+                        <span>الموقع</span>
+                    </div>
+                    <div class="attach-option" data-type="contact">
+                        <i class="fas fa-address-book"></i>
+                        <span>جهة اتصال</span>
+                    </div>
+                    <div class="attach-option" data-type="audio">
+                        <i class="fas fa-music"></i>
+                        <span>تسجيل صوتي</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- مسجل الصوت -->
+    <div class="voice-recorder" id="voiceRecorder">
+        <div class="voice-header">
+            <i class="fas fa-microphone"></i>
+            <span>تسجيل صوتي</span>
+        </div>
+        <div class="voice-waveform" id="voiceWaveform">
+            <!-- سيتم عرض الموجات الصوتية هنا -->
+        </div>
+        <div class="voice-timer" id="voiceTimer">00:00</div>
+        <div class="voice-controls">
+            <button class="voice-control delete-recording" id="deleteRecording">
+                <i class="fas fa-trash"></i>
+            </button>
+            <button class="voice-control send-recording" id="sendRecording">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- قائمة الإجراءات السريعة -->
+    <div class="quick-actions-menu" id="quickActionsMenu">
+        <div class="quick-action" data-action="video-call">
+            <i class="fas fa-video"></i>
+            <span>مكالمة فيديو</span>
+        </div>
+        <div class="quick-action" data-action="voice-call">
+            <i class="fas fa-phone"></i>
+            <span>مكالمة صوتية</span>
+        </div>
+        <div class="quick-action" data-action="view-profile">
+            <i class="fas fa-user"></i>
+            <span>عرض الملف الشخصي</span>
+        </div>
+        <div class="quick-action" data-action="medical-history">
+            <i class="fas fa-file-medical"></i>
+            <span>السجل الطبي</span>
+        </div>
+        <div class="quick-action" data-action="prescription">
+            <i class="fas fa-file-prescription"></i>
+            <span>كتابة وصفة طبية</span>
+        </div>
+        <div class="quick-action" data-action="block">
+            <i class="fas fa-ban"></i>
+            <span>حظر المريض</span>
+        </div>
+    </div>
+
+    <!-- معاينة الوسائط -->
+    <div class="media-preview" id="mediaPreview">
+        <div class="preview-header">
+            <button class="back-preview" id="backPreview">
+                <i class="fas fa-arrow-right"></i>
+            </button>
+            <h3>معاينة المرفق</h3>
+            <button class="send-preview" id="sendPreview">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+        <div class="preview-content" id="previewContent">
+            <!-- سيتم عرض الوسائط هنا -->
+        </div>
+    </div>
+
+    <script src="js/chat.js"></script>
+</body>
+</html>
