@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طبيب 24/7 - إدارة المرضى</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #c7d2fe;
+            --secondary: #06d6a0;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --dark: #1e1b4b;
+            --light: #f8fafc;
+            --surface: #ffffff;
+            --glass: rgba(255, 255, 255, 0.25);
+            --glass-dark: rgba(255, 255, 255, 0.1);
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-medical: linear-gradient(135deg, #6366f1 0%, #06d6a0 100%);
+            --gradient-premium: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --shadow-glass: 0 8px 32px rgba(99, 102, 241, 0.2);
+            --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+            --radius-xl: 24px;
+            --radius-lg: 20px;
+            --radius-md: 16px;
+            --radius-sm: 12px;
+            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', 'El Messiri', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f8fafc 50%, #e0e7ff 100%);
+            color: var(--text-primary);
+            direction: rtl;
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        /* تصميم شريط الحالة المتميز */
+        .status-bar {
+            background: transparent;
+            color: var(--text-primary);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            backdrop-filter: blur(20px);
+            position: relative;
+            z-index: 1000;
+        }
+
+        .status-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            z-index: -1;
+        }
+
+        /* التطبيق الرئيسي */
+        .premium-app {
+            max-width: 428px;
+            margin: 0 auto;
+            background: transparent;
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* الخلفية الديناميكية */
+        .background-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            right: 20%;
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* الهيدر المتميز */
+        .premium-header {
+            background: var(--gradient-medical);
+            color: white;
+            padding: 30px 24px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+            box-shadow: var(--shadow-glass);
+        }
+
+        .header-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .greeting-text h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #fff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .greeting-text p {
+            font-size: 16px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .premium-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .premium-avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        /* شريط البحث */
+        .search-container {
+            position: relative;
+            margin-bottom: 24px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 50px 16px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: var(--radius-lg);
+            color: white;
+            font-size: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 18px;
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            padding: 0 20px 100px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 800;
+            margin: 32px 0 20px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--gradient-medical);
+            border-radius: 2px;
+        }
+
+        /* إحصائيات المرضى */
+        .patients-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-medical);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .stat-1 .stat-icon { background: #e0e7ff; color: var(--primary); }
+        .stat-2 .stat-icon { background: #d1fae5; color: var(--success); }
+        .stat-3 .stat-icon { background: #fef3c7; color: var(--warning); }
+        .stat-4 .stat-icon { background: #fce7f3; color: #ec4899; }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            background: var(--gradient-medical);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* فلاتر المرضى */
+        .patients-filters {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            background: var(--surface);
+            border: 1px solid #e2e8f0;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            white-space: nowrap;
+        }
+
+        .filter-btn.active {
+            background: var(--gradient-medical);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* قائمة المرضى */
+        .patients-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .patient-card {
+            background: var(--surface);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .patient-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--gradient-medical);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .patient-card:hover::before {
+            opacity: 1;
+        }
+
+        .patient-card:hover {
+            transform: translateX(-8px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .patient-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-lg);
+            background: var(--gradient-medical);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .patient-avatar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+        }
+
+        .patient-info {
+            flex: 1;
+        }
+
+        .patient-name {
+            font-weight: 700;
+            margin-bottom: 6px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .patient-badge {
+            background: var(--success);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .patient-details {
+            font-size: 14px;
+            color: var(--text-secondary);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .patient-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .patient-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        .patient-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light);
+            color: var(--primary);
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            font-size: 14px;
+        }
+
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* شريط التنقل السفلي المتميز */
+        .bottom-nav-premium {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            padding: 12px;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-soft);
+            z-index: 1000;
+            max-width: 380px;
+            width: calc(100% - 40px);
+        }
+
+        .nav-item-premium {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            transition: var(--transition-smooth);
+            flex: 1;
+            position: relative;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .nav-item-premium.active {
+            background: var(--gradient-medical);
+            color: white;
+            transform: translateY(-8px);
+        }
+
+        .nav-item-premium.active .nav-label {
+            color: white;
+        }
+
+        .nav-icon-premium {
+            font-size: 20px;
+            margin-bottom: 4px;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-item-premium.active .nav-icon-premium {
+            transform: scale(1.2);
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            transition: var(--transition-smooth);
+        }
+
+        /* زر الفعل العائم المتميز */
+        .fab-premium {
+            position: fixed;
+            bottom: 90px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-premium);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-glass);
+            z-index: 999;
+            transition: var(--transition-bounce);
+            border: none;
+            cursor: pointer;
+        }
+
+        .fab-premium:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .fab-premium:active {
+            transform: scale(0.9) rotate(180deg);
+        }
+
+        /* التكيف مع الشاشات */
+        @media (max-width: 428px) {
+            .premium-app {
+                max-width: 100%;
+            }
+            
+            .patients-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* تأثيرات الظهور */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* موجات الخلفية */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" fill="%23ffffff"></path></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        /* لا توجد مرضى */
+        .no-patients {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .no-patients i {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .no-patients h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .no-patients p {
+            font-size: 14px;
+        }
+
+        /* نافذة تفاصيل المريض */
+        .patient-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-soft);
+            animation: modalAppear 0.3s ease-out;
+        }
+
+        @keyframes modalAppear {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: var(--gradient-medical);
+            color: white;
+            padding: 24px;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .patient-detail-item {
+            margin-bottom: 20px;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 16px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .medical-history {
+            background: var(--light);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-top: 24px;
+        }
+
+        .medical-history h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .history-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .history-item:last-child {
+            border-bottom: none;
+        }
+
+        .history-date {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .history-diagnosis {
+            font-size: 14px;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+    <!-- تأثيرات الخلفية الديناميكية -->
+    <div class="background-effects">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="wave"></div>
+    </div>
+
+    <!-- شريط الحالة -->
+    <div class="status-bar">
+        <div class="status-left">
+            <span>2:45</span>
+        </div>
+        <div class="status-right">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-three-quarters"></i>
+        </div>
+    </div>
+
+    <!-- التطبيق الرئيسي -->
+    <div class="premium-app">
+        <!-- الهيدر المتميز -->
+        <div class="premium-header">
+            <div class="header-background"></div>
+            <div class="header-content">
+                <div class="welcome-section">
+                    <div class="greeting-text">
+                        <h1>إدارة المرضى 👨‍⚕️</h1>
+                        <p>عرض وإدارة سجلات المرضى</p>
+                    </div>
+                    <div class="premium-avatar">
+                        <i class="fas fa-user-md"></i>
+                    </div>
+                </div>
+
+                <!-- شريط البحث -->
+                <div class="search-container">
+                    <input type="text" class="search-input" placeholder="ابحث عن مريض بالاسم أو الرقم..." id="searchInput">
+                    <div class="search-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- المحتوى الرئيسي -->
+        <div class="main-content">
+            <!-- إحصائيات المرضى -->
+            <div class="patients-stats">
+                <div class="stat-card stat-1 fade-in">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">142</div>
+                            <div class="stat-label">إجمالي المرضى</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-2 fade-in">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">جدد هذا الشهر</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-3 fade-in">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">86%</div>
+                            <div class="stat-label">نسبة المتابعة</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-4 fade-in">
+                    <div class="stat-header">
+                        <div>
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">بحاجة متابعة</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- فلاتر المرضى -->
+            <div class="section-title">تصفية المرضى</div>
+            <div class="patients-filters">
+                <button class="filter-btn active" data-filter="all">الكل</button>
+                <button class="filter-btn" data-filter="active">نشط</button>
+                <button class="filter-btn" data-filter="followup">بحاجة متابعة</button>
+                <button class="filter-btn" data-filter="chronic">مرضى مزمنون</button>
+                <button class="filter-btn" data-filter="new">جدد</button>
+            </div>
+
+            <!-- قائمة المرضى -->
+            <div class="section-title">قائمة المرضى</div>
+            <div class="patients-list" id="patientsList">
+                <!-- سيتم إضافة المرضى ديناميكياً -->
+            </div>
+        </div>
+
+        <!-- زر الفعل العائم -->
+        <button class="fab-premium" id="refreshBtn">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+
+        <!-- شريط التنقل السفلي -->
+        <div class="bottom-nav-premium">
+            <a href="index.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-label">الرئيسية</div>
+            </a>
+            <a href="appointments.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="nav-label">المواعيد</div>
+            </a>
+            <a href="patients.html" class="nav-item-premium active">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-user-injured"></i>
+                </div>
+                <div class="nav-label">المرضى</div>
+            </a>
+            <a href="chat.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <div class="nav-label">الدردشة</div>
+            </a>
+            <a href="settings.html" class="nav-item-premium">
+                <div class="nav-icon-premium">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="nav-label">الإعدادات</div>
+            </a>
+        </div>
+    </div>
+
+    <!-- نافذة تفاصيل المريض -->
+    <div class="patient-modal" id="patientModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>تفاصيل المريض</h2>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- سيتم تعبئة البيانات ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // بيانات المرضى الافتراضية
+        const patientsData = [
+            {
+                id: 1,
+                name: "محمد السيد",
+                initial: "م",
+                age: 45,
+                gender: "ذكر",
+                phone: "+966500123456",
+                email: "mohamed@example.com",
+                status: "active",
+                lastVisit: "2023-10-10",
+                nextAppointment: "2023-10-25",
+                conditions: ["ارتفاع ضغط الدم", "سكري النوع الثاني"],
+                notes: "مريض منتظم في المتابعة",
+                medicalHistory: [
+                    { date: "2023-10-10", diagnosis: "فحص دوري - استقرار في ضغط الدم" },
+                    { date: "2023-09-15", diagnosis: "تعديل جرعة الدواء" },
+                    { date: "2023-08-20", diagnosis: "شكوى من دوخة - تم عمل تحاليل" }
+                ]
+            },
+            {
+                id: 2,
+                name: "فاطمة أحمد",
+                initial: "ف",
+                age: 32,
+                gender: "أنثى",
+                phone: "+966511234567",
+                email: "fatima@example.com",
+                status: "followup",
+                lastVisit: "2023-10-12",
+                nextAppointment: "2023-10-30",
+                conditions: ["سكري الحمل", "قصور الغدة الدرقية"],
+                notes: "بحاجة لمتابعة مستمرة",
+                medicalHistory: [
+                    { date: "2023-10-12", diagnosis: "متابعة سكري الحمل - تحسن ملحوظ" },
+                    { date: "2023-09-28", diagnosis: "فحص الغدة الدرقية - تعديل العلاج" }
+                ]
+            },
+            {
+                id: 3,
+                name: "علي محمود",
+                initial: "ع",
+                age: 28,
+                gender: "ذكر",
+                phone: "+966522345678",
+                email: "ali@example.com",
+                status: "active",
+                lastVisit: "2023-10-08",
+                nextAppointment: "",
+                conditions: ["آلام الظهر المزمنة"],
+                notes: "يحتاج لجلسات علاج طبيعي",
+                medicalHistory: [
+                    { date: "2023-10-08", diagnosis: "كشف على آلام الظهر - تحويل لعلاج طبيعي" },
+                    { date: "2023-09-10", diagnosis: "فحص أولي لآلام الظهر" }
+                ]
+            },
+            {
+                id: 4,
+                name: "سارة خالد",
+                initial: "س",
+                age: 65,
+                gender: "أنثى",
+                phone: "+966533456789",
+                email: "sara@example.com",
+                status: "chronic",
+                lastVisit: "2023-10-05",
+                nextAppointment: "2023-11-05",
+                conditions: ["هشاشة العظام", "ضغط مرتفع", "سكري"],
+                notes: "مريضة مزمنة - متابعة شهرية",
+                medicalHistory: [
+                    { date: "2023-10-05", diagnosis: "متابعة الأمراض المزمنة - استقرار" },
+                    { date: "2023-09-05", diagnosis: "فحص دوري - تعديل أدوية الضغط" }
+                ]
+            },
+            {
+                id: 5,
+                name: "أحمد ناصر",
+                initial: "أ",
+                age: 19,
+                gender: "ذكر",
+                phone: "+966544567890",
+                email: "ahmed@example.com",
+                status: "new",
+                lastVisit: "2023-10-15",
+                nextAppointment: "",
+                conditions: ["ربو شعبي"],
+                notes: "مريض جديد - بحاجة لتثقيف صحي",
+                medicalHistory: [
+                    { date: "2023-10-15", diagnosis: "تشخيص ربو شعبي - وصف بخاخات" }
+                ]
+            },
+            {
+                id: 6,
+                name: "نورة عبدالله",
+                initial: "ن",
+                age: 29,
+                gender: "أنثى",
+                phone: "+966555678901",
+                email: "nora@example.com",
+                status: "active",
+                lastVisit: "2023-10-14",
+                nextAppointment: "2023-11-14",
+                conditions: ["متابعة حمل"],
+                notes: "حامل في الأسبوع 24 - متابعة منتظمة",
+                medicalHistory: [
+                    { date: "2023-10-14", diagnosis: "متابعة حمل - الأسبوع 24 - كل شيء طبيعي" },
+                    { date: "2023-09-20", diagnosis: "فحص حمل - الأسبوع 20" }
+                ]
+            }
+        ];
+
+        // عناصر DOM
+        const patientsList = document.getElementById('patientsList');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const searchInput = document.getElementById('searchInput');
+        const refreshBtn = document.getElementById('refreshBtn');
+        const patientModal = document.getElementById('patientModal');
+        const closeModal = document.getElementById('closeModal');
+        const modalBody = document.getElementById('modalBody');
+
+        // دالة لعرض المرضى
+        function displayPatients(filter = 'all', searchTerm = '') {
+            patientsList.innerHTML = '';
+            
+            let filteredPatients = patientsData;
+            
+            // تطبيق الفلتر
+            if (filter !== 'all') {
+                filteredPatients = patientsData.filter(patient => patient.status === filter);
+            }
+            
+            // تطبيق البحث
+            if (searchTerm) {
+                filteredPatients = filteredPatients.filter(patient => 
+                    patient.name.includes(searchTerm) || 
+                    patient.phone.includes(searchTerm)
+                );
+            }
+            
+            if (filteredPatients.length === 0) {
+                patientsList.innerHTML = `
+                    <div class="no-patients fade-in">
+                        <i class="fas fa-user-slash"></i>
+                        <h3>لا توجد نتائج</h3>
+                        <p>لم يتم العثور على مرضى يطابقون معايير البحث</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredPatients.forEach(patient => {
+                const statusBadge = {
+                    'active': { text: 'نشط', class: 'patient-badge', style: 'background: var(--success);' },
+                    'followup': { text: 'متابعة', class: 'patient-badge', style: 'background: var(--warning);' },
+                    'chronic': { text: 'مزمن', class: 'patient-badge', style: 'background: var(--error);' },
+                    'new': { text: 'جديد', class: 'patient-badge', style: 'background: var(--primary);' }
+                };
+                
+                const patientCard = document.createElement('div');
+                patientCard.className = 'patient-card fade-in';
+                patientCard.setAttribute('data-patient-id', patient.id);
+                patientCard.innerHTML = `
+                    <div class="patient-avatar">${patient.initial}</div>
+                    <div class="patient-info">
+                        <div class="patient-name">
+                            ${patient.name}
+                            <span class="patient-badge" style="${statusBadge[patient.status].style}">
+                                ${statusBadge[patient.status].text}
+                            </span>
+                        </div>
+                        <div class="patient-details">
+                            <div>${patient.age} سنة • ${patient.gender}</div>
+                            <div>${patient.conditions.join('، ')}</div>
+                        </div>
+                        <div class="patient-meta">
+                            <div class="patient-meta-item">
+                                <i class="fas fa-phone"></i>
+                                ${patient.phone}
+                            </div>
+                            <div class="patient-meta-item">
+                                <i class="fas fa-calendar"></i>
+                                آخر زيارة: ${formatDate(patient.lastVisit)}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="patient-actions">
+                        <button class="action-btn" onclick="viewPatientDetails(${patient.id})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-btn" onclick="messagePatient(${patient.id})">
+                            <i class="fas fa-comment"></i>
+                        </button>
+                    </div>
+                `;
+                
+                patientsList.appendChild(patientCard);
+            });
+            
+            // تفعيل تأثيرات الظهور
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(element => {
+                element.classList.add('visible');
+            });
+        }
+
+        // دالة لعرض تفاصيل المريض
+        function viewPatientDetails(id) {
+            const patient = patientsData.find(p => p.id === id);
+            if (patient) {
+                modalBody.innerHTML = `
+                    <div class="patient-detail-item">
+                        <div class="detail-label">الاسم الكامل</div>
+                        <div class="detail-value">${patient.name}</div>
+                    </div>
+                    <div class="patient-detail-item">
+                        <div class="detail-label">العمر والجنس</div>
+                        <div class="detail-value">${patient.age} سنة - ${patient.gender}</div>
+                    </div>
+                    <div class="patient-detail-item">
+                        <div class="detail-label">رقم الهاتف</div>
+                        <div class="detail-value">${patient.phone}</div>
+                    </div>
+                    <div class="patient-detail-item">
+                        <div class="detail-label">البريد الإلكتروني</div>
+                        <div class="detail-value">${patient.email}</div>
+                    </div>
+                    <div class="patient-detail-item">
+                        <div class="detail-label">الحالات المرضية</div>
+                        <div class="detail-value">${patient.conditions.join('، ')}</div>
+                    </div>
+                    <div class="patient-detail-item">
+                        <div class="detail-label">آخر زيارة</div>
+                        <div class="detail-value">${formatDate(patient.lastVisit)}</div>
+                    </div>
+                    ${patient.nextAppointment ? `
+                    <div class="patient-detail-item">
+                        <div class="detail-label">الموعد القادم</div>
+                        <div class="detail-value">${formatDate(patient.nextAppointment)}</div>
+                    </div>
+                    ` : ''}
+                    <div class="patient-detail-item">
+                        <div class="detail-label">ملاحظات</div>
+                        <div class="detail-value">${patient.notes}</div>
+                    </div>
+                    <div class="medical-history">
+                        <h3>السجل الطبي</h3>
+                        ${patient.medicalHistory.map(visit => `
+                            <div class="history-item">
+                                <div class="history-date">${formatDate(visit.date)}</div>
+                                <div class="history-diagnosis">${visit.diagnosis}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                patientModal.style.display = 'flex';
+            }
+        }
+
+        // دالة لإرسال رسالة للمريض
+        function messagePatient(id) {
+            const patient = patientsData.find(p => p.id === id);
+            if (patient) {
+                showNotification(`جاري فتح محادثة مع ${patient.name}`, 'info');
+                // هنا يمكن إضافة التوجيه إلى صفحة المحادثة
+            }
+        }
+
+        // دالة لتنسيق التاريخ
+        function formatDate(dateString) {
+            if (!dateString) return 'لا يوجد';
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('ar-EG', options);
+        }
+
+        // دالة للحصول على الفلتر النشط
+        function getActiveFilter() {
+            const activeFilter = document.querySelector('.filter-btn.active');
+            return activeFilter ? activeFilter.getAttribute('data-filter') : 'all';
+        }
+
+        // دالة لعرض الإشعارات
+        function showNotification(message, type) {
+            // إنشاء عنصر الإشعار
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            // إضافة الأنماط للإشعار
+            notification.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: ${type === 'success' ? '#10b981' : type === 'warning' ? '#f59e0b' : '#6366f1'};
+                color: white;
+                padding: 12px 24px;
+                border-radius: var(--radius-md);
+                box-shadow: var(--shadow-soft);
+                z-index: 10000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // إزالة الإشعار بعد 3 ثوانٍ
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // إضافة أنيميشن للإشعارات
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+                to { transform: translateX(-50%) translateY(0); opacity: 1; }
+            }
+            
+            @keyframes slideOut {
+                from { transform: translateX(-50%) translateY(0); opacity: 1; }
+                to { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // تفعيل الفلاتر
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                displayPatients(button.getAttribute('data-filter'), searchInput.value);
+            });
+        });
+
+        // تفعيل البحث
+        searchInput.addEventListener('input', () => {
+            displayPatients(getActiveFilter(), searchInput.value);
+        });
+
+        // تفعيل زر التحديث
+        refreshBtn.addEventListener('click', () => {
+            refreshBtn.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                refreshBtn.style.transform = '';
+                displayPatients(getActiveFilter(), searchInput.value);
+                showNotification('تم تحديث البيانات', 'info');
+            }, 500);
+        });
+
+        // إغلاق نافذة التفاصيل
+        closeModal.addEventListener('click', () => {
+            patientModal.style.display = 'none';
+        });
+
+        // إغلاق النافذة عند النقر خارجها
+        patientModal.addEventListener('click', (e) => {
+            if (e.target === patientModal) {
+                patientModal.style.display = 'none';
+            }
+        });
+
+        // تفعيل تأثيرات الظهور عند التمرير
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('visible');
+                appearOnScroll.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        fadeElements.forEach(element => {
+            appearOnScroll.observe(element);
+        });
+
+        // تحديث الوقت في شريط الحالة
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('ar-EG', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                hour12: true 
+            });
+            document.querySelector('.status-left span').textContent = timeString;
+        }
+
+        setInterval(updateTime, 60000);
+        updateTime();
+
+        // عرض المرضى أول مرة
+        displayPatients();
+    </script>
+</body>
+</html>
